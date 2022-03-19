@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<!-- Title -->
+{% block title %}Whatsapp Txt Parser!{% endblock title %}
+<!-- Style -->
+{% block style %} svg { width: 3.5em; height: 3.5em; } path{animation: dash;} #one { stroke-dasharray: 1080.4884033203125; stroke-dashoffset: 1080.4884033203125; animation-duration: 2s; animation-delay: 1s; animation-fill-mode: forwards; } #two { stroke-dasharray: 497.57928466796875; stroke-dashoffset: 497.57928466796875; animation-duration: 2s; animation-delay: 3s; animation-fill-mode: forwards; } #three { stroke-dasharray: 400.8631896972656; stroke-dashoffset: 400.8631896972656;
+animation-duration: 2s; animation-delay: 5s; animation-fill-mode: forwards; } #four { stroke-dasharray: 16.192270278930664; stroke-dashoffset: 16.192270278930664; animation-duration: 1s; animation-delay: 7s; animation-fill-mode: forwards; } @keyframes dash { to { stroke-dashoffset: 0; } } html{ font-size: 25px;} form{ display: grid; place-items: center; } button{ background-color: var(--red); border: 1px solid var(--white); color: var(--white); padding: 10px; font-size: 1em; font-weight: bold;
+border-radius: 5px; cursor: pointer; } input[type=text]{ background: var(--white); border: none; padding:2.5px; transform: scale(1.25);}{% endblock style %}
+<!-- Body -->
+{% block body %}
+<form method="post" enctype="multipart/form-data" action="parser/">
+  {% csrf_token %}
+  <h2 style="margin: 0">Enter names:</h2>
+  <h1 style="font-size: 20px">(Swap the names to change prespective)</h1>
+  <input type="text" name="primary" placeholder="Your username" required />
+  <br />
+  <input type="text" name="secondary" placeholder="Contact name" required />
+  <p style="margin: 20.05px 10px 10px 10px">Make sure your device language is English(United States) before exporting your chat</p>
+  <h1 style="font-size: 22.5px; font-size: 15px">Upload your WhatsApp txt file</h1>
+  <input type="file" name="txt" accept=".txt" required />
+  <br />
+  <button type="submit">Parse!</button>
+  <br />
+  <a href="http://wa.me/918787697831"
+    ><svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path id="one" d="M91 162.486C113.318 220.936 131.123 268.711 138.014 286.95C142.243 298.142 153.148 328.626 155.373 316.85C156.809 309.248 157.211 306.78 157.983 301.873C161.507 279.488 158.626 296.547 162.682 270.783C166.206 248.398 169.748 207.975 197.699 146.423C256.432 17.0892 379.409 107.714 395.655 158.273C404.68 186.362 436.418 286.153 346.517 377.365C256.616 468.576 165.709 391.642 155.373 347.872" stroke="#ffffff" stroke-width="15" stroke-linecap="round" />
+      <path
+        id="two"
+        d="M225 317.508C227.251 286.776 229.502 256.044 231.003 225.311C232.017 204.558 233.255 185.54 234.396 164.843C234.542 164.168 234.78 158.215 236.689 160.352C238.908 162.835 241.406 168.245 242.51 170.542C248.143 182.275 252.999 194.379 257.913 206.41C269.365 234.444 277.928 263.406 290.837 290.869C293.94 297.469 297.209 303.982 300.479 310.502C300.602 310.746 305.737 320.235 306.044 317.508C309.046 290.869 312.101 263.275 313.549 238.87C315.21 210.849 317.301 181.021 318.801 153"
+        stroke="#ffffff"
+        stroke-width="15"
+        stroke-linecap="round"
+      />
+      <path id="three" d="M73.0367 377.534C131.313 370.322 189.59 363.109 247.867 355.896C322.04 346.716 396.882 338.206 470.825 328" stroke="#ffffff" stroke-width="15" stroke-linecap="round" />
+      <path id="four" d="M186.832 315C186.573 315.777 185.46 319.979 186.322 320.6C187.17 321.211 188.334 321.145 189.127 320.244C189.794 319.488 190.249 318.481 189.852 317.041C189.272 314.933 188.074 315.214 186.953 315.214" stroke="#ffffff" stroke-width="10" stroke-linecap="round" /></svg
+  ></a>
+</form>
+{% endblock body %}

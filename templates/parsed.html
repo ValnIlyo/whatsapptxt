@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+<!-- Title -->
+{% block title %}Parsed!{% endblock title %}
+<!-- Style -->
+{% block style %} button{ background-color: var(--red); border: 1px solid var(--white); color: var(--white); padding: 10px; font-size: 1em; font-weight: bold; border-radius: 5px; cursor: pointer; } {% endblock style %}
+<!-- Body -->
+{% block body %}
+<h2 style="margin-left: 12.5%; margin-right: 12.5%">You've been in contact for {% if years != 0 %} {{years}} years and {% endif %} {% if months != 0 %} {{months}} months and {% endif %} have sent each other {{sum}} messages, of which {{you}} of them belong to you and {{contact}} belong to {{second}}!</h2>
+<canvas id="can" width="250" height="250"></canvas>
+<h3 style="margin: 0px">Download a hard copy of your chat!</h3>
+<a href="/download/"><button style="margin: 2.5px">Download</button></a>
+<script>
+  var canvas = document.getElementById("can");
+  var ctx = canvas.getContext("2d");
+  var lastend = 0;
+  var data = [parseInt("{{PercentagePrimary}}"), parseInt("{{PercentageSecondary}}")];
+  var myTotal = 0;
+  var myColor = ["hsl(210, 70%, 55%)", "hsl(350, 70%, 55%)"];
+  var labels = ["{{PercentagePrimary}}%", "{{PercentageSecondary}}%"];
+
+  for (var e = 0; e < data.length; e++) {
+    myTotal += data[e];
+  }
+  var off = 10;
+  var w = (canvas.width - off) / 2;
+  var h = (canvas.height - off) / 2;
+  for (var i = 0; i < data.length; i++) {
+    ctx.fillStyle = myColor[i];
+    ctx.beginPath();
+    ctx.moveTo(w, h);
+    var len = (data[i] / myTotal) * 2 * Math.PI;
+    var r = h - off / 2;
+    ctx.arc(w, h, r, lastend, lastend + len, false);
+    ctx.lineTo(w, h);
+    ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    var mid = lastend + len / 2;
+    ctx.fillText(labels[i], w + Math.cos(mid) * (r / 2), h + Math.sin(mid) * (r / 2));
+    lastend += Math.PI * 2 * (data[i] / myTotal);
+  }
+</script>
+{% endblock body %}

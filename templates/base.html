@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="{% static 'logo.svg' %}" type="image/x-icon" />
+    <meta name="description" content="whatsapptxt.herokuapp.com" />
+    <meta name="author" content="Vivian Alexander Lyngdoh Nonglait" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>{% block title %}{% endblock title %}</title>
+    <style>
+      :root {
+        --white: hsl(0, 0%, 100%);
+        --blue: hsl(210, 70%, 55%);
+        --red: hsl(350, 70%, 55%);
+      }
+      html,body{
+        margin: 0;
+        padding:0;
+        text-align: center;
+        height: 100%;
+        color: var(--white);
+        display: grid; place-items: center;
+        background-color: var(--blue);
+      }
+      {% block style %}{% endblock style %}
+    </style>
+  </head>
+  <body>
+    {% block body %}{% endblock body %}
+  </body>
+</html>

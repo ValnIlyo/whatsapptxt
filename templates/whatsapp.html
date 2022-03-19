@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="whatsapptxt.herokuapp.com">
+    <meta name="author" content="Vivian Alexander Lyngdoh Nonglait">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+    <title>WhatsApp chat with {{ second }}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 12.5px;
+        color: white;
+      }
+      *::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+      html {
+        background: #efe6dd;
+      }
+      .contain {
+        margin-top: 60px;
+        padding: 0 5px;
+      }
+      .start{
+        text-align: center;
+      }
+      .start p {
+        color: #000000f5;
+        background: #fff5c4f2;
+        text-align: center;
+        display: inline-block;
+        padding: 7.5px;
+        border-radius: 7.5px;
+        margin: 5px 30px 0;
+      }
+      .message-1,
+      .message-2 {
+        margin-top: 1px;
+        transition: all 1s;
+      }
+      .message-1 {
+        text-align: left;
+      }
+      .message-2 {
+        text-align: right;
+      }
+      .auth-1,
+      .auth-2 {
+        position: relative;
+        display: inline-block;
+        padding: 7.5px;
+        border-radius: 7.5px;
+        max-width: 60%;
+        text-align: left;
+      }
+      .auth-1 {
+        background: white;
+        margin-left: 1rem;
+      }
+      .auth-2 {
+        background: #e7ffdb;
+        margin-right: 1rem;
+      }
+      tt{
+        color: #303030;
+      }
+      .text {
+        color: #303030;
+        padding-right: 40px;
+        overflow-wrap: break-word;
+        font-size: 14.5px;
+      }
+      .time {
+        position: absolute;
+        color: #00000073;
+        font-size: 10px;
+        display: inline-block;
+        text-align: right;
+        bottom: 5px;
+        right: 5px;
+      }
+      .tailbefore,
+      .tailafter {
+        margin-top: 5px;
+      }
+      .tailbefore:before {
+        content: "";
+        position: absolute;
+        left: -12.5px;
+        top: 0px;
+        width: 0;
+        height: 0;
+        border-top: 17.5px solid white;
+        border-left: 17.5px solid transparent;
+      }
+      .tailafter:after {
+        content: "";
+        position: absolute;
+        right: -12.5px;
+        top: 0px;
+        width: 0;
+        height: 0;
+        border-top: 17.5px solid #e7ffdb;
+        border-right: 17.5px solid transparent;
+      }
+      .date {
+        text-align: center;
+      }
+      .date p {
+        color: #000000E0;
+        background: #e1f5feeb;
+        display: inline-block;
+        padding: 7.5px;
+        border-radius: 7.5px;
+        margin-top: 5px;
+      }
+      .end{
+        display: grid;
+        place-items:center;
+        min-height: 60px;
+        background: white;
+        margin: 5px -5px 0 -5px;
+      }
+      .end p{
+        color: #00000099;
+        text-decoration: none;
+        text-align: center;
+        margin: 0px 30px
+      }
+      .NavigationBars{
+        position: fixed;
+        width: 100%;
+        max-width:100%;
+        top: 0;
+        z-index: 99;
+      }
+      nav {
+        min-height: 60px;
+        position: absolute;
+        width: 100%;
+        font-size: 1.5rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        background: #008069;
+        left: -100%;
+        transition: 1s;
+      }
+      nav li {
+        padding:10px;
+        list-style: none;
+        display: grid;
+        place-items: center;
+      }
+      .name{
+        transform: scale(1.75);
+        margin-left: 55px;
+        padding:0;
+      }
+      .toggle-1{
+        margin-left: auto;
+        margin-right: 20px;
+      }
+      .toggle-2{
+        transform: scale(1);
+      }
+      .icon {
+        vertical-align: middle;
+        transform: scale(1.25);
+      }
+      .finder {
+        flex-grow: 1;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 0.75em;
+        box-sizing: border-box;
+        border:none ;
+        border-bottom: solid 1px white;
+        outline: none;
+        background: transparent;
+      }
+      ::placeholder {
+        color: white;
+        opacity: 0.75;
+      }
+      .button{
+        border-radius: 50%;
+        transition: all -5s;
+        cursor: pointer;
+      }
+      .button:active{
+        background: rgb(255, 255, 255,0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="NavigationBars">
+      <nav id='FirstNavigationBar' style="left: 0%">
+        <li class='name'>
+          <h1>{{ second }}</h1>
+        </li>
+        <li class='toggle-1 button'>
+         <span class="material-icons-sharp icon" onclick="hide()">search</span>
+        </li>
+      </nav>
+      <nav id='SecondNavigationBar'>
+        <li class='toggle-2 button' onclick="remove()">
+          <span class="material-icons-outlined icon" onclick="reveal()">arrow_back</span>
+        </li>
+        <li>
+          <p id="matches"></p>
+        </li>
+        <li class="finder">
+            <input type="text" id="search" name="search" placeholder="Search..." spellcheck="false" autocomplete="off"/>
+        </li>
+        <li class='up iterate button' onclick="up()">
+          <span class="material-icons-outlined icon">expand_less</span>
+        </li>
+        <li class='down iterate button' onclick="down()">
+          <span class="material-icons-outlined icon">expand_more</span>
+        </li>
+      </nav>
+    </div>
+    <div class="contain">
+      <div class="start"><p>Messages are end-to-end encrypted. No one outside this webpage can read them.<br>(Just Kidding)</p></div>
+      {% for message in chat %}
+      {% if message.date %}
+      <div class="date">
+        <p>{{message.date}}</p>
+      </div>
+      {% endif %}
+      {% if message.writer == second %}
+      <div class="message-1">
+        <div class="auth-1 tailbefore">
+      {% endif %}
+      {% if message.writer == primary %}
+      <div class="message-2">
+        <div class="auth-2 tailafter">
+      {% endif %}
+      {% if message.writer == second|add:":same" %}
+      <div class="message-1">
+        <div class="auth-1">
+      {% endif %}
+      {% if message.writer == primary|add:":same" %}
+      <div class="message-2">
+        <div class="auth-2">
+      {% endif %}
+          <p class="text">{{message.message|safe|linebreaksbr}}</p>
+          <p class="time">{{message.time}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="end">
+        <p>You can't send messages to this person from here.</p>
+      </div>
+    </div>
+    <script>
+      var texts = document.querySelectorAll(".text");
+      var input = document.getElementById("search");
+      var matches = document.getElementById("matches");
+      var position;
+      var res;
+      input.addEventListener("keyup", function (e) {
+        if (e.key === "Enter") {
+          get_elements_by_inner(input.value);
+          if (res.length !== 0) {
+            res[res.length - 1].scrollIntoView({ behaviour: "smooth", block: "center" });
+            position = res.length - 1;
+            cyan();
+            showMatches();
+          } else {
+            alert("Search not found!");
+          }
+        }
+      });
+      function remove() {
+        res = [];
+        input.value = "";
+        matches.textContent = "";
+      }
+      function get_elements_by_inner(word) {
+        res = [];
+        const array = word.split(" ");
+        texts.forEach((elem) => {
+          content = elem.textContent;
+          var every = array.every((item) => content.toLowerCase().includes(item.toLowerCase()));
+          if (every) {
+            res.push(elem);
+          }
+        });
+        return res;
+      }
+      function up() {
+        if (res.length !== 0) {
+          if (res[position - 1] !== undefined) {
+            res[position - 1].scrollIntoView({ behaviour: "smooth", block: "center" });
+            position = position - 1;
+            cyan();
+            showMatches();
+          }
+        }
+      }
+      function down() {
+        if (res.length !== 0) {
+          if (res[position + 1] !== undefined) {
+            res[position + 1].scrollIntoView({ behaviour: "smooth", block: "center" });
+            position = position + 1;
+            cyan();
+            showMatches();
+          }
+        }
+      }
+      function cyan() {
+        res[position].parentNode.parentNode.style = "background:rgb(0 255 255 / 25%)";
+        setTimeout(() => {
+          res[position].parentNode.parentNode.style = "background:rgb(0 0 0 / 0%)";
+        }, 1000);
+      }
+      function showMatches(){
+        matches.textContent = (position + 1) + "/" + res.length;
+      }
+      function hide() {
+        document.getElementById("SecondNavigationBar").style.left = "0%";
+      }
+      function reveal(){
+        document.getElementById("SecondNavigationBar").style.left = "-100%";
+      }
+    </script>
+  </body>
+</html>
