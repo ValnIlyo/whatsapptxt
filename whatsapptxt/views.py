@@ -65,7 +65,7 @@ def parsing(strings: list, primary: str, secondary: str):
         text["message"] = re.sub("<","&lt",text["message"],)
         text["message"] = re.sub(">","&gt",text["message"],)
         text["message"] = re.sub(
-            "<Media omitted>", "<tt>Cannot Display Media</tt>", text["message"]
+            "&ltMedia omitted&gt", "<tt>Cannot Display Media</tt>", text["message"]
         )
         text["message"] = re.sub(
             "You deleted this message\\n",
