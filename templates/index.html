@@ -9,11 +9,11 @@ border-radius: 5px; cursor: pointer; } input[type=text]{ background: var(--white
 {% block body %}
 <form id="form" method="post" enctype="multipart/form-data" action="parser/">
   {% csrf_token %}
-  <h2>Names are required:</h2>
+  <h4>Names are required:</h4>
   <input type="text" name="primary" placeholder="Your username" required />
   <br />
   <input type="text" name="secondary" placeholder="Contact name" required />
-  <h3>Attach a WhatsApp txt file:</h3>
+  <h5>Attach a WhatsApp txt file:</h5>
   <input type="file" name="txt" accept=".txt" required />
   <p style="font-size: 20px">Ensure your device's language is set to English(United States) before exporting your chat.</p>
   <br />
