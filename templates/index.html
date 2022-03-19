@@ -7,16 +7,15 @@ animation-duration: 2s; animation-delay: 5s; animation-fill-mode: forwards; } #f
 border-radius: 5px; cursor: pointer; } input[type=text]{ background: var(--white); border: none; padding:2.5px; transform: scale(1.25);}{% endblock style %}
 <!-- Body -->
 {% block body %}
-<form method="post" enctype="multipart/form-data" action="parser/">
+<form id="form" method="post" enctype="multipart/form-data" action="parser/">
   {% csrf_token %}
-  <h2 style="margin: 0">Enter names:</h2>
-  <h1 style="font-size: 20px">(Swap the names to change prespective)</h1>
+  <h2>Names are required:</h2>
   <input type="text" name="primary" placeholder="Your username" required />
   <br />
   <input type="text" name="secondary" placeholder="Contact name" required />
-  <p style="margin: 20.05px 10px 10px 10px">Make sure your device language is English(United States) before exporting your chat</p>
-  <h1 style="font-size: 22.5px; font-size: 15px">Upload your WhatsApp txt file</h1>
+  <h3>Attach a WhatsApp txt file:</h3>
   <input type="file" name="txt" accept=".txt" required />
+  <p style="font-size: 20px">Ensure your device's language is set to English(United States) before exporting your chat.</p>
   <br />
   <button type="submit">Parse!</button>
   <br />
@@ -34,4 +33,12 @@ border-radius: 5px; cursor: pointer; } input[type=text]{ background: var(--white
       <path id="four" d="M186.832 315C186.573 315.777 185.46 319.979 186.322 320.6C187.17 321.211 188.334 321.145 189.127 320.244C189.794 319.488 190.249 318.481 189.852 317.041C189.272 314.933 188.074 315.214 186.953 315.214" stroke="#ffffff" stroke-width="10" stroke-linecap="round" /></svg
   ></a>
 </form>
+<script>
+  const form = document.querySelector("form");
+  const button = document.querySelector("button");
+  form.addEventListener("submit", () => {
+    button.innerText = "Please wait...";
+    button.disabled = true;
+  });
+</script>
 {% endblock body %}

@@ -5,10 +5,11 @@
 {% block style %} button{ background-color: var(--red); border: 1px solid var(--white); color: var(--white); padding: 10px; font-size: 1em; font-weight: bold; border-radius: 5px; cursor: pointer; } {% endblock style %}
 <!-- Body -->
 {% block body %}
-<h2 style="margin-left: 12.5%; margin-right: 12.5%">You've been in contact for {% if years != 0 %} {{years}} years and {% endif %} {% if months != 0 %} {{months}} months and {% endif %} have sent each other {{sum}} messages, of which {{you}} of them belong to you and {{contact}} belong to {{second}}!</h2>
+<h2 style="margin-left: 12.5%; margin-right: 12.5%">Over the past{% if years != 0 %}{% if years == 1 and months != 0%} year,{% elif years == 1 %} year and{% else %} {{years}} years and{% endif %}{% endif %}{% if months != 0 %}{% if months == 1 and years != 0 %} month,{% elif months == 1%} a month,{% else %} {{months}} months,{% endif %}{% endif %} you've exchanged {{sum}} messages, out of which {{you}} belong to you and {{contact}} belong to {{second}}!</h2>
 <canvas id="can" width="250" height="250"></canvas>
 <h3 style="margin: 0px">Download a hard copy of your chat!</h3>
 <a href="/download/"><button style="margin: 2.5px">Download</button></a>
+<h3 style="margin: 0px">To change prespectives, swap the names in the previous tab</h3>
 <script>
   var canvas = document.getElementById("can");
   var ctx = canvas.getContext("2d");
