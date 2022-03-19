@@ -14,10 +14,12 @@ def parser(request):
     if request.method == "POST" and request.FILES["txt"] != 0:
         primary = request.POST["primary"]
         secondary = request.POST["secondary"]
-        strings = TextIOWrapper(request.FILES["txt"], encoding="utf-8").readlines()
+        strings = TextIOWrapper(
+            request.FILES["txt"], encoding="utf-8").readlines()
     result = parsing(strings, primary, secondary)
     PercentagePrimary = round((result["you"]) / result["sum"] * 100)
-    PercentageSecondary = round((result["sum"] - result["you"]) / result["sum"] * 100)
+    PercentageSecondary = round(
+        (result["sum"] - result["you"]) / result["sum"] * 100)
     if PercentagePrimary > PercentageSecondary:
         big = PercentagePrimary
         small = PercentageSecondary
@@ -54,7 +56,8 @@ def download(request):
 def parsing(strings: list, primary: str, secondary: str):
     PatternInfo = FindPattern(strings, primary, secondary)
     merged = MessageMerger(strings, PatternInfo["pattern"])
-    extracted = extractor(merged, PatternInfo["pattern"], PatternInfo["PatternIndex"])
+    extracted = extractor(
+        merged, PatternInfo["pattern"], PatternInfo["PatternIndex"])
     years = math.floor(extracted["NoOfMonths"] / 12)
     months = extracted["NoOfMonths"] % 12
     sum = 0
@@ -126,7 +129,8 @@ def extractor(merged: list, pattern: str, PatternIndex: str):
                 time = match.group(6) + ":" + match.group(7)
                 current_writer = match.group(8)
             else:
-                time = match.group(6) + ":" + match.group(7) + " " + match.group(8)
+                time = match.group(6) + ":" + \
+                    match.group(7) + " " + match.group(8)
                 current_writer = match.group(9)
             Info["time"] = time
             if current_writer != last_writer:
@@ -187,7 +191,8 @@ def FindPattern(strings: list, primary: str, secondary: str):
         "([0-9]+)(/)([0-9]+)(/)([0-9][0-9]), ([0-9]+):([0-9]+) (AM|PM)",
     ]
     for TimePattern in patterns:
-        TestPattern = r"^" + TimePattern + " - (" + primary + "|" + secondary + "):"
+        TestPattern = r"^" + TimePattern + \
+            " - (" + primary + "|" + secondary + "):"
         for string in strings[0:6]:
             match = re.match(TestPattern, string)
             if match:
