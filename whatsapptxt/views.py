@@ -74,6 +74,8 @@ def parsing(strings: list, primary: str, secondary: str):
             "<tt>This message was deleted</tt>",
             text["message"],
         )
+        text["message"] = re.sub("<","&lt",text["message"],)
+        text["message"] = re.sub(">","&gt",text["message"],)
         sum += 1
         if any(writer == text["writer"] for writer in [primary, primary + ":same"]):
             you += 1
