@@ -7,10 +7,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "whatsapptxt.herokuapp.com",
-]
+ALLOWED_HOSTS = [ "ValnIlyo.pythonanywhere.com." ]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
